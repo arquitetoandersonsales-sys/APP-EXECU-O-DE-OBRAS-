@@ -1,0 +1,7 @@
+{
+  "name": "EngenhariaPro - Gestão de Obras",
+  "description": "Sistema completo para gestão técnica, financeira e operacional de obras civis, substituindo planilhas complexas por uma interface robusta e inteligente.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
