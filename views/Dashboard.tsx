@@ -6,9 +6,10 @@ import {
   CheckCircle2, 
   DollarSign,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  HardHat
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { Project } from '../types';
 
 const data = [
@@ -28,7 +29,7 @@ const Dashboard: React.FC<{ projects: Project[] }> = ({ projects }) => {
     <div className="space-y-8 animate-in fade-in duration-500">
       <header>
         <h1 className="text-3xl font-extrabold tracking-tight">Painel de Controle</h1>
-        <p className="text-slate-400 mt-1 text-lg">Visão consolidada das suas operações e performance financeira.</p>
+        <p className="text-neutral-400 mt-1 text-lg">Visão consolidada das suas operações e performance financeira.</p>
       </header>
 
       {/* Quick Stats Grid */}
@@ -36,28 +37,28 @@ const Dashboard: React.FC<{ projects: Project[] }> = ({ projects }) => {
         <StatCard 
           title="Obras Ativas" 
           value={activeProjectsCount.toString()} 
-          icon={<HardHat className="text-blue-500" />} 
+          icon={<HardHat className="text-orange-500" />} 
           trend="+2 este mês" 
           trendUp={true}
         />
         <StatCard 
           title="Faturamento Total" 
           value={`R$ ${(totalValue / 1000000).toFixed(1)}M`} 
-          icon={<DollarSign className="text-emerald-500" />} 
+          icon={<DollarSign className="text-orange-500" />} 
           trend="+12% vs. ano anterior" 
           trendUp={true}
         />
         <StatCard 
           title="Avanço Físico Médio" 
           value="42%" 
-          icon={<TrendingUp className="text-purple-500" />} 
+          icon={<TrendingUp className="text-orange-500" />} 
           trend="-3% do cronograma" 
           trendUp={false}
         />
         <StatCard 
           title="Alertas de Desvio" 
           value="4" 
-          icon={<AlertCircle className="text-amber-500" />} 
+          icon={<AlertCircle className="text-orange-500" />} 
           trend="2 críticos" 
           trendUp={false}
         />
@@ -65,12 +66,12 @@ const Dashboard: React.FC<{ projects: Project[] }> = ({ projects }) => {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-slate-800/50 p-6 rounded-3xl border border-slate-700/50 backdrop-blur-sm">
+        <div className="bg-neutral-900/50 p-6 rounded-3xl border border-neutral-800 backdrop-blur-sm">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-lg">Custo Previsto x Realizado</h3>
             <div className="flex gap-4 text-xs">
-              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded-full"></div> Previsto</div>
-              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-emerald-500 rounded-full"></div> Realizado</div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-neutral-600 rounded-full"></div> Previsto</div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-orange-500 rounded-full"></div> Realizado</div>
             </div>
           </div>
           <div className="h-[300px] w-full">
@@ -78,41 +79,41 @@ const Dashboard: React.FC<{ projects: Project[] }> = ({ projects }) => {
               <AreaChart data={data}>
                 <defs>
                   <linearGradient id="colorPrev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#525252" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#525252" stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorReal" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#ea580c" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#ea580c" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `R$${v}`} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
+                <XAxis dataKey="name" stroke="#737373" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="#737373" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `R$${v}`} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.5)' }} 
+                  contentStyle={{ backgroundColor: '#171717', border: '1px solid #262626', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.5)' }} 
                   itemStyle={{ color: '#fff' }}
                 />
-                <Area type="monotone" dataKey="previsto" stroke="#3b82f6" fillOpacity={1} fill="url(#colorPrev)" strokeWidth={3} />
-                <Area type="monotone" dataKey="realizado" stroke="#10b981" fillOpacity={1} fill="url(#colorReal)" strokeWidth={3} />
+                <Area type="monotone" dataKey="previsto" stroke="#525252" fillOpacity={1} fill="url(#colorPrev)" strokeWidth={3} />
+                <Area type="monotone" dataKey="realizado" stroke="#ea580c" fillOpacity={1} fill="url(#colorReal)" strokeWidth={3} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="bg-slate-800/50 p-6 rounded-3xl border border-slate-700/50 backdrop-blur-sm">
+        <div className="bg-neutral-900/50 p-6 rounded-3xl border border-neutral-800 backdrop-blur-sm">
           <h3 className="font-bold text-lg mb-6">Avanço das Obras</h3>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={projects.map(p => ({ name: p.name.split(' ')[1], progress: p.stages[0]?.progress || 0 }))}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
+                <XAxis dataKey="name" stroke="#737373" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="#737373" fontSize={12} tickLine={false} axisLine={false} />
                 <Tooltip 
-                  cursor={{ fill: '#334155', opacity: 0.4 }}
-                  contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '12px' }}
+                  cursor={{ fill: '#262626', opacity: 0.4 }}
+                  contentStyle={{ backgroundColor: '#171717', border: '1px solid #262626', borderRadius: '12px' }}
                 />
-                <Bar dataKey="progress" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={40} />
+                <Bar dataKey="progress" fill="#ea580c" radius={[4, 4, 0, 0]} barSize={40} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -120,39 +121,39 @@ const Dashboard: React.FC<{ projects: Project[] }> = ({ projects }) => {
       </div>
 
       {/* Recent Projects Table Preview */}
-      <div className="bg-slate-800/50 rounded-3xl border border-slate-700/50 overflow-hidden">
-        <div className="p-6 border-b border-slate-700/50 flex justify-between items-center">
+      <div className="bg-neutral-900/50 rounded-3xl border border-neutral-800 overflow-hidden">
+        <div className="p-6 border-b border-neutral-800 flex justify-between items-center">
           <h3 className="font-bold text-lg">Obras em Destaque</h3>
-          <button className="text-sm text-blue-500 font-semibold hover:underline">Ver todas</button>
+          <button className="text-sm text-orange-500 font-semibold hover:underline">Ver todas</button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-900/50 text-slate-400 text-xs uppercase tracking-wider">
+              <tr className="bg-neutral-950/50 text-neutral-400 text-xs uppercase tracking-wider">
                 <th className="px-6 py-4 font-semibold">Nome da Obra</th>
                 <th className="px-6 py-4 font-semibold">Status</th>
                 <th className="px-6 py-4 font-semibold">Progresso</th>
                 <th className="px-6 py-4 font-semibold text-right">Valor Contratado</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-700/50">
+            <tbody className="divide-y divide-neutral-800">
               {projects.map(p => (
-                <tr key={p.id} className="hover:bg-slate-700/20 transition-colors">
+                <tr key={p.id} className="hover:bg-neutral-800/20 transition-colors">
                   <td className="px-6 py-4 font-medium">{p.name}</td>
                   <td className="px-6 py-4">
                     <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
-                      p.status === 'Em Execução' ? 'bg-emerald-500/10 text-emerald-500' : 
-                      p.status === 'Planejamento' ? 'bg-blue-500/10 text-blue-500' : 'bg-slate-500/10 text-slate-500'
+                      p.status === 'Em Execução' ? 'bg-orange-500/10 text-orange-500' : 
+                      p.status === 'Planejamento' ? 'bg-neutral-500/10 text-neutral-400' : 'bg-neutral-700/10 text-neutral-500'
                     }`}>
                       {p.status}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-blue-500 h-full rounded-full" style={{ width: '45%' }}></div>
+                      <div className="flex-1 bg-neutral-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-orange-600 h-full rounded-full" style={{ width: '45%' }}></div>
                       </div>
-                      <span className="text-xs text-slate-400">45%</span>
+                      <span className="text-xs text-neutral-400">45%</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right font-mono text-sm">
@@ -169,9 +170,9 @@ const Dashboard: React.FC<{ projects: Project[] }> = ({ projects }) => {
 };
 
 const StatCard: React.FC<{ title: string; value: string; icon: React.ReactNode; trend: string; trendUp: boolean }> = ({ title, value, icon, trend, trendUp }) => (
-  <div className="bg-slate-800/50 p-6 rounded-3xl border border-slate-700/50 backdrop-blur-sm group hover:border-blue-500/50 transition-all">
+  <div className="bg-neutral-900/50 p-6 rounded-3xl border border-neutral-800 backdrop-blur-sm group hover:border-orange-500/50 transition-all">
     <div className="flex justify-between items-start mb-4">
-      <div className="p-3 bg-slate-900 rounded-2xl group-hover:bg-blue-600/10 transition-colors">
+      <div className="p-3 bg-neutral-950 rounded-2xl group-hover:bg-orange-600/10 transition-colors border border-neutral-800">
         {icon}
       </div>
       <span className={`text-xs font-bold flex items-center gap-1 ${trendUp ? 'text-emerald-500' : 'text-rose-500'}`}>
@@ -179,17 +180,9 @@ const StatCard: React.FC<{ title: string; value: string; icon: React.ReactNode; 
         {trend}
       </span>
     </div>
-    <p className="text-slate-400 text-sm font-medium uppercase tracking-wide">{title}</p>
+    <p className="text-neutral-400 text-sm font-medium uppercase tracking-wide">{title}</p>
     <h4 className="text-2xl font-extrabold mt-1 tracking-tight">{value}</h4>
   </div>
-);
-
-const HardHat: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"></path>
-    <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"></path>
-    <path d="M4 15v-3a6 6 0 0 1 12 0v3"></path>
-  </svg>
 );
 
 export default Dashboard;
